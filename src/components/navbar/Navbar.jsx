@@ -1,101 +1,159 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Drawer, Box, Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Drawer, Box, List, ListItem, ListItemButton, ListItemText, useMediaQuery } from '@mui/material';
 import { Menu as MenuIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [accountDrawerOpen, setAccountDrawerOpen] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const toggleDrawer = (open) => () => {
-    setDrawerOpen(open);
+  const toggleDrawer = (type, open) => () => {
+    if (type === 'menu') {
+      setDrawerOpen(open);
+    } else if (type === 'account') {
+      setAccountDrawerOpen(open);
+    }
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
 
-          {/* Drawer Toggle */}
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+            {/* Menu Icon - visible on mobile only */}
+            {isMobile && (
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={toggleDrawer('menu', true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
-            DevConnect
-          </Typography>
+            {/* DevConnect Text - click to navigate home */}
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, cursor: 'pointer' }}
+              onClick={() => navigate('/')}
+            >
+              DevConnect
+            </Typography>
 
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={toggleDrawer(true)}
-          >
-            <AccountCircle />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+            {/* Account Icon */}
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={toggleDrawer('account', true)}
+            >
+              <AccountCircle />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
 
-      {/* Drawer Content */}
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}
-      >
-        <Box
-          sx={{ width: 300 }}
-          role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+        {/* Left Drawer (Main Menu) */}
+        <Drawer
+          anchor="left"
+          open={drawerOpen}
+          onClose={toggleDrawer('menu', false)}
         >
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/login/dev')}>
-                <ListItemText primary="Developer Login" />
-              </ListItemButton>
-            </ListItem>
+          <Box
+            sx={{ width: 300 }}
+            role="presentation"
+            onClick={toggleDrawer('menu', false)}
+            onKeyDown={toggleDrawer('menu', false)}
+          >
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => navigate('/')}>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => navigate('/dashboard')}>
+                  <ListItemText primary="Dashboard" />
+                </ListItemButton>
+              </ListItem>
+               <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/signup/dev')}>
+                    <ListItemText primary="Developer Sign Up" />
+                  </ListItemButton>
+                </ListItem>
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/login/user')}>
-                <ListItemText primary="User Login" />
-              </ListItemButton>
-            </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/login/dev')}>
+                    <ListItemText primary="Developer Login" />
+                  </ListItemButton>
+                </ListItem>
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/signup/dev')}>
-                <ListItemText primary="Developer Sign Up" />
-              </ListItemButton>
-            </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/signup/user')}>
+                    <ListItemText primary="User Sign Up" />
+                  </ListItemButton>
+                </ListItem>
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/signup/user')}>
-                <ListItemText primary="User Sign Up" />
-              </ListItemButton>
-            </ListItem>
-          </List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/login/user')}>
+                    <ListItemText primary="User Login" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </List>
+          </Box>
+        </Drawer>
 
-          <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/dashboard')}>
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-      </Drawer>
-    </Box>
+        {!isMobile && (
+          <Drawer
+            anchor="right"
+            open={accountDrawerOpen}
+            onClose={toggleDrawer('account', false)}
+          >
+            <Box
+              sx={{ width: 300 }}
+              role="presentation"
+              onClick={toggleDrawer('account', false)}
+              onKeyDown={toggleDrawer('account', false)}
+            >
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/signup/dev')}>
+                    <ListItemText primary="Developer Sign Up" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/login/dev')}>
+                    <ListItemText primary="Developer Login" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/signup/user')}>
+                    <ListItemText primary="User Sign Up" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => navigate('/login/user')}>
+                    <ListItemText primary="User Login" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Box>
+          </Drawer>
+        )}
+      </Box>
+    </>
   );
 };
 

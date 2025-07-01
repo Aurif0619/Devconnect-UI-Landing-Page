@@ -12,21 +12,11 @@ const LandingPage = () => {
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 8, ease: 'linear' }}
                     style={{
-                        width: 80,
-                        height: 80,
-                        margin: '0 auto',
-                        backgroundColor: '#1976d2',
+                        width: 80, height: 80,
+                        margin: '0 auto', backgroundColor: '#1976d2',
                         borderRadius: '50%',
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            color: '#fff',
-                            lineHeight: '80px',
-                            fontWeight: 'bold',
-                            fontFamily: 'monospace',
-                        }}>
+                    }} >
+                    <Typography variant="h5" sx={{ color: '#fff', lineHeight: '80px', fontWeight: 'bold', fontFamily: 'monospace' }}>
                         DC
                     </Typography>
                 </motion.div>
