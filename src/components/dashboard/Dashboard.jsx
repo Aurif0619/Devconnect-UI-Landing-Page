@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
-import {
-    Box, Drawer, CssBaseline, List, Divider,
-    ListItem, ListItemButton, ListItemIcon, ListItemText,
-    Typography, Grid, Card, CardContent, Avatar, Stack,
-    Chip, Tabs, Tab, Paper, IconButton, useMediaQuery, useTheme
+import { Box, Drawer, CssBaseline, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText,
+    Typography, Grid, Card, CardContent, Avatar, Stack, Chip, Tabs, Tab, Paper, IconButton, useMediaQuery, useTheme
 } from '@mui/material';
+
 import {
-    Person as ProfileIcon,
-    Work as ProjectsIcon,
-    ExitToApp as LogoutIcon,
-    Assignment as ActiveProjectsIcon,
-    MonetizationOn as BidsIcon,
-    Group as TeamIcon,
-    Assessment as StatsIcon,
-    Code as CodeIcon,
-    Computer as ComputerIcon,
-    PhoneAndroid as MobileIcon,
-    Palette as DesignIcon,
-    Menu as MenuIcon
+    Person as ProfileIcon, Work as ProjectsIcon, ExitToApp as LogoutIcon,
+    Assignment as ActiveProjectsIcon, MonetizationOn as BidsIcon, Group as TeamIcon,
+    Assessment as StatsIcon, Code as CodeIcon, Computer as ComputerIcon,
+    PhoneAndroid as MobileIcon, Palette as DesignIcon, Menu as MenuIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import StarRateIcon from '@mui/icons-material/StarRate';
@@ -188,8 +178,7 @@ const Dashboard = () => {
                 description: 'Complete branding for startup company',
                 tech: ['Illustrator', 'Photoshop', 'After Effects'],
                 status: 'Completed',
-                startDate: 'Oct 2022',
-                teamSize: 2
+                startDate: 'Oct 2022', teamSize: 2
             },
             {
                 id: 15,
@@ -198,8 +187,7 @@ const Dashboard = () => {
                 description: 'Custom component library for admin dashboards',
                 tech: ['Figma', 'Storybook', 'Lottie'],
                 status: 'In Progress',
-                startDate: 'Jun 2023',
-                teamSize: 1
+                startDate: 'Jun 2023', teamSize: 1
             }
         ]
     };
@@ -230,10 +218,8 @@ const Dashboard = () => {
         <Card
             onClick={() => handleProjectClick(project)}
             sx={{
-                cursor: 'pointer',
-                height: '100%',
-                width: '100%',
-                transition: 'transform 0.2s',
+                cursor: 'pointer', height: '100%',
+                width: '100%', transition: 'transform 0.2s',
                 display: 'flex',
                 flexDirection: 'column',
                 '&:hover': {

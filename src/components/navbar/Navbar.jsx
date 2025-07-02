@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box,
-  Menu, MenuItem, Button, useMediaQuery, Avatar,
-  Divider,
-} from '@mui/material';
-import { Menu as MenuIcon, ArrowDropDown, Code, Person, Home, Dashboard, LightMode, DarkMode } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, IconButton, Box, Menu, MenuItem, Button, useMediaQuery, Avatar, Divider } from '@mui/material';
+import { Menu as MenuIcon, ArrowDropDown, Code, Person, Home, Dashboard, DarkMode } from '@mui/icons-material';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar = () => {
   const [mobileAnchor, setMobileAnchor] = useState(null);
   const [devAnchor, setDevAnchor] = useState(null);
   const [userAnchor, setUserAnchor] = useState(null);
@@ -45,14 +42,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <>
       <AppBar position="static" elevation={0} sx={{
-        bgcolor: 'transparent',
-        background: darkMode
-          ? 'linear-gradient(135deg, rgba(10,25,41,0.9) 0%, rgba(19,47,76,0.9) 100%)'
-          : 'linear-gradient(135deg, rgba(21,101,192,0.9) 0%, rgba(25,118,210,0.9) 100%)',
-        backdropFilter: 'blur(10px)',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-        borderBottom: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease'
       }}>
         <Toolbar sx={{
           justifyContent: 'space-between',
@@ -63,19 +52,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         }}>
           <Box sx={{
             display: 'flex',
-            alignItems: 'center',
-            flex: 1
+            alignItems: 'center', flex: 1
           }}>
             <Avatar
               src="/logo.png"
               alt="DevConnect"
               sx={{
-                mx: 2,
-                bgcolor: darkMode ? 'rgba(144,202,249,0.2)' : 'rgba(255,255,255,0.2)',
-                color: 'white',
+                mx: 2, color: 'white',
                 cursor: 'pointer',
-                width: 40,
-                height: 40,
+                width: 40, height: 40,
                 transition: 'transform 0.3s',
                 '&:hover': {
                   transform: 'scale(1.1)'
@@ -152,7 +137,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           }}>
 
             <IconButton sx={{ color: 'white' }}>
-              {darkMode ? <LightMode /> : <DarkMode />}
+              <DarkMode />
             </IconButton>
 
             {!isMobile ? (
@@ -188,9 +173,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                         borderRadius: 2,
                         mt: 1,
                         minWidth: 200,
-                        background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
                         backdropFilter: 'blur(20px)',
-                        color: darkMode ? '#fff' : 'inherit'
                       }
                     }}
                   >
@@ -240,9 +223,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                         borderRadius: 2,
                         mt: 1,
                         minWidth: 200,
-                        background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
                         backdropFilter: 'blur(20px)',
-                        color: darkMode ? '#fff' : 'inherit'
                       }
                     }}
                   >
@@ -285,9 +266,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 borderRadius: 2,
                 mt: 1,
                 minWidth: 200,
-                background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
                 backdropFilter: 'blur(20px)',
-                color: darkMode ? '#fff' : 'inherit'
               }
             }}
           >
@@ -303,7 +282,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             >
               <Dashboard sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Selection
             </MenuItem>
-            <Divider sx={{ my: 1, bgcolor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
+            <Divider sx={{ my: 1 }} />
             <MenuItem
               onClick={() => handleNavigation('/signup/dev')}
               sx={{ py: 1.5 }}
@@ -316,7 +295,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             >
               <Code sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Developer Login
             </MenuItem>
-            <Divider sx={{ my: 1, bgcolor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
+            <Divider sx={{ my: 1 }} />
             <MenuItem
               onClick={() => handleNavigation('/signup/user')}
               sx={{ py: 1.5 }}

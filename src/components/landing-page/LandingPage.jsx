@@ -8,6 +8,7 @@ const LandingPage = () => {
     const theme = useTheme();
 
     return (
+      <>
         <Box
             sx={{
                 minHeight: '100vh',
@@ -17,7 +18,6 @@ const LandingPage = () => {
             }}
         >
             <Container maxWidth="md" sx={{ textAlign: 'center', py: 8 }}>
-                {/* Animated Logo with Scale Effect */}
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1, rotate: 360 }}
@@ -92,7 +92,6 @@ const LandingPage = () => {
                     </Typography>
                 </motion.div>
 
-                {/* Search with Interactive Animation */}
                 <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -112,7 +111,6 @@ const LandingPage = () => {
                     />
                 </motion.div>
 
-                {/* CTA Button with Pulse Animation */}
                 <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -135,8 +133,7 @@ const LandingPage = () => {
                         variant="contained"
                         size="large"
                         sx={{
-                            px: 6,
-                            py: 1.5,
+                            px: 6, py: 1.5,
                             borderRadius: '50px',
                             fontSize: '1.1rem',
                             fontWeight: 600,
@@ -148,7 +145,6 @@ const LandingPage = () => {
                     </Button>
                 </motion.div>
 
-                {/* Additional decorative elements */}
                 <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center', gap: 4 }}>
                     {['React', 'Node.js', 'Python', 'UI/UX'].map((tech) => (
                         <motion.div
@@ -169,6 +165,7 @@ const LandingPage = () => {
                 </Box>
             </Container>
         </Box>
+        </>
     );
 };
 

@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  Box, Typography, Card, CardActionArea,
-  CardContent, Grid, Container, styled, useTheme
-} from '@mui/material';
+import { Box, Typography, Card, CardActionArea,CardContent, Grid, Container, styled, useTheme } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
 import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-// Animation variants
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -23,19 +19,14 @@ const cardVariants = {
 };
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  maxWidth: 345,
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
+  maxWidth: 345,  height: '100%',
+  display: 'flex', flexDirection: 'column',
   borderRadius: '16px',
-  overflow: 'hidden',
-  position: 'relative',
+  overflow: 'hidden', position: 'relative',
   '&::before': {
     content: '""',
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    top: 0, left: 0, right: 0,
     height: '4px',
     background: theme.palette.primary.main,
   },
@@ -57,8 +48,7 @@ const StyledCardContent = styled(CardContent)(({ theme }) => ({
 }));
 
 const IconContainer = styled(Box)(({ theme }) => ({
-  width: 80,
-  height: 80,
+  width: 80, height: 80,
   borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
@@ -91,12 +81,10 @@ const UserDevSelection = () => {
           transition={{ duration: 0.5 }}
         >
           <Typography
-            variant="h3"
-            align="center"
+            variant="h3" align="center"
             gutterBottom
             sx={{
-              mb: 6,
-              fontWeight: 700,
+              mb: 6, fontWeight: 700,
               background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -133,8 +121,7 @@ const UserDevSelection = () => {
                         color: 'primary.main',
                         fontWeight: 500,
                         mt: 'auto'
-                      }}
-                    >
+                      }} c>
                       Get Started →
                     </Typography>
                   </StyledCardContent>
@@ -146,8 +133,7 @@ const UserDevSelection = () => {
           <Grid item xs={12} sm={6} md={6}>
             <motion.div
               variants={cardVariants}
-              initial="hidden"
-              animate="visible"
+              initial="hidden" animate="visible"
               whileHover="hover"
               transition={{ delay: 0.1 }}
             >

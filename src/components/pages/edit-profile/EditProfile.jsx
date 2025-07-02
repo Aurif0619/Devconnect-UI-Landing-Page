@@ -1,16 +1,6 @@
 import React, { useState } from 'react';
-import {
-    Box, Typography, Avatar, Paper, Stack,
-    Divider, Button, TextField, Grid, IconButton,
-    Chip
-} from '@mui/material';
-import {
-    Email as EmailIcon,
-    Link as LinkIcon,
-    Code as CodeIcon,
-    ArrowBack as BackIcon,
-    Save as SaveIcon
-} from '@mui/icons-material';
+import { Box, Typography, Avatar, Paper, Stack, Divider, Button, TextField, Grid, IconButton, Chip } from '@mui/material';
+import { Email as EmailIcon, Link as LinkIcon, Code as CodeIcon, ArrowBack as BackIcon, Save as SaveIcon } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
@@ -54,12 +44,11 @@ const EditProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you would typically save to backend or state management
-        // For now, we'll just navigate back to profile with updated data
         navigate('/profile', { state: { userData } });
     };
 
     return (
+       <>
         <Box sx={{ p: 4 }}>
             <Paper elevation={3} sx={{ p: 4 }}>
                 <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
@@ -203,6 +192,7 @@ const EditProfile = () => {
                 </form>
             </Paper>
         </Box>
+        </>
     );
 };
 

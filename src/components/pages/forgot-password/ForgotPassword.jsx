@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, TextField, Typography,
-    Paper, Alert, Snackbar } from '@mui/material';
+import { Box, Button, Container, TextField, Typography, Paper, Alert, Snackbar } from '@mui/material';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -64,20 +63,17 @@ const ForgotPassword = () => {
                         border: '1px solid rgba(255, 255, 255, 0.2)'
                     }}>
                         <Typography
-                            variant="h3"
-                            align="center"
+                            variant="h3" align="center"
                             gutterBottom
                             sx={{
                                 fontWeight: 700,
-                                color: 'primary.main',
-                                mb: 1
+                                color: 'primary.main', mb: 1
                             }}
                         >
                             Forgot Password
                         </Typography>
                         <Typography
-                            variant="body1"
-                            align="center"
+                            variant="body1" align="center"
                             sx={{
                                 color: 'text.secondary',
                                 mb: 4
@@ -96,8 +92,7 @@ const ForgotPassword = () => {
                                     setEmail(e.target.value);
                                     setError('');
                                 }}
-                                error={!!error}
-                                helperText={error}
+                                error={!!error} helperText={error}
                                 margin="normal"
                                 sx={{ mb: 3 }}
                                 InputProps={{
@@ -107,8 +102,7 @@ const ForgotPassword = () => {
 
                             <Button
                                 type="submit"
-                                fullWidth
-                                variant="contained"
+                                fullWidth variant="contained"
                                 size="large"
                                 sx={{
                                     py: 1.5,
@@ -148,13 +142,11 @@ const ForgotPassword = () => {
                     open={openSnackbar}
                     autoHideDuration={4000}
                     onClose={handleSnackbarClose}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                >
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <Alert
                         onClose={handleSnackbarClose}
                         severity="success"
-                        sx={{ width: '100%' }}
-                    >
+                        sx={{ width: '100%' }}>
                         Password reset link sent to your email!
                     </Alert>
                 </Snackbar>
