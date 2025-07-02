@@ -35,14 +35,9 @@ const UserDevSelection = () => {
     <>
       <Box>
         <Container maxWidth="md" sx={{ py: 8 }}>
-          <Typography
-            variant="h4"
-            align="center"
-            gutterBottom
-            sx={{ mb: 6, fontWeight: 'bold' }}
-          >
-            Join DevConnect As
-          </Typography>
+          <Typography variant="h4" align="center" gutterBottom
+            sx={{ mb: 6, fontWeight: 'bold' }} >
+            Join DevConnect As   </Typography>
 
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={6} md={6}>
@@ -51,12 +46,9 @@ const UserDevSelection = () => {
                   <StyledCardContent>
                     <Box sx={{
                       width: 80,
-                      height: 80,
-                      bgcolor: 'primary.main',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      height: 80, bgcolor: 'primary.main',
+                      borderRadius: '50%', display: 'flex',
+                      alignItems: 'center', justifyContent: 'center',
                       mb: 3
                     }}>
                       <CodeIcon sx={{ fontSize: 40, color: 'common.white' }} />
@@ -77,13 +69,10 @@ const UserDevSelection = () => {
                 <CardActionArea sx={{ height: '100%' }}>
                   <StyledCardContent>
                     <Box sx={{
-                      width: 80,
-                      height: 80,
+                      width: 80, height: 80,
                       bgcolor: 'secondary.main',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      borderRadius: '50%', display: 'flex',
+                      alignItems: 'center', justifyContent: 'center',
                       mb: 3
                     }}>
                       <PersonIcon sx={{ fontSize: 40, color: 'common.white' }} />

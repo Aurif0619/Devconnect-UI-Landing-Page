@@ -1,159 +1,302 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Drawer, Box, List, ListItem, ListItemButton, ListItemText, useMediaQuery } from '@mui/material';
-import { Menu as MenuIcon, AccountCircle } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import {
+  AppBar, Toolbar, Typography, IconButton, Box,
+  Menu, MenuItem, Button, useMediaQuery, Avatar,
+  Divider
+} from '@mui/material';
+import {
+  Menu as MenuIcon,
+  ArrowDropDown,
+  Code,
+  Person,
+  Home,
+  Dashboard
+} from '@mui/icons-material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 
 const Navbar = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [accountDrawerOpen, setAccountDrawerOpen] = useState(false);
+  const [mobileAnchor, setMobileAnchor] = useState(null);
+  const [devAnchor, setDevAnchor] = useState(null);
+  const [userAnchor, setUserAnchor] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const toggleDrawer = (type, open) => () => {
-    if (type === 'menu') {
-      setDrawerOpen(open);
-    } else if (type === 'account') {
-      setAccountDrawerOpen(open);
-    }
+  const handleMobileMenuOpen = (event) => {
+    setMobileAnchor(event.currentTarget);
   };
 
+  const handleDevMenuOpen = (event) => {
+    setDevAnchor(event.currentTarget);
+  };
+
+  const handleUserMenuOpen = (event) => {
+    setUserAnchor(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMobileAnchor(null);
+    setDevAnchor(null);
+    setUserAnchor(null);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    handleMenuClose();
+  };
+
+  // Check active route for button styling
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
+    <AppBar position="static" elevation={1} sx={{
+      bgcolor: 'background.paper',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+    }}>
+      <Toolbar sx={{
+        justifyContent: 'space-between',
+        px: { xs: 2, md: 4 }
+      }}>
+        {/* Logo Section */}
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flex: isMobile ? 1 : 0
+        }}>
+          <Avatar
+            src="/logo.png"
+            alt="DevConnect"
+            sx={{
+              mr: 2,
+              bgcolor: 'primary.main',
+              cursor: 'pointer',
+              width: 40,
+              height: 40
+            }}
+            onClick={() => navigate('/')}
+          />
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 700,
+              color: 'text.primary',
+              cursor: 'pointer',
+              display: { xs: 'none', sm: 'block' }
+            }}
+            onClick={() => navigate('/')}
+          >
+            DevConnect
+          </Typography>
+        </Box>
 
-            {/* Menu Icon - visible on mobile only */}
-            {isMobile && (
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                onClick={toggleDrawer('menu', true)}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-
-            {/* DevConnect Text - click to navigate home */}
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
+        {/* Center Navigation - Only on desktop */}
+        {!isMobile && (
+          <Box sx={{
+            display: 'flex',
+            gap: 1,
+            flex: 1,
+            justifyContent: 'center',
+            mx: 4
+          }}>
+            <Button
+              startIcon={<Home />}
+              color={isActive('/') ? 'primary' : 'inherit'}
+              variant={isActive('/') ? 'contained' : 'text'}
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                textTransform: 'none',
+                fontWeight: isActive('/') ? 600 : 500
+              }}
               onClick={() => navigate('/')}
             >
-              DevConnect
-            </Typography>
+              Home
+            </Button>
+            <Button
+              startIcon={<Dashboard />}
+              color={isActive('/selection') ? 'primary' : 'inherit'}
+              variant={isActive('/selection') ? 'contained' : 'text'}
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                textTransform: 'none',
+                fontWeight: isActive('/selection') ? 600 : 500
+              }}
+              onClick={() => navigate('/selection')}
+            >
+              Selection
+            </Button>
+          </Box>
+        )}
 
-            {/* Account Icon */}
+        {/* Right Side - Auth Buttons */}
+        <Box sx={{
+          display: 'flex',
+          gap: 2,
+          flex: isMobile ? 0 : 1,
+          justifyContent: 'flex-end'
+        }}>
+          {!isMobile ? (
+            <>
+              <Box>
+                <Button
+                  color="primary"
+                  variant={devAnchor ? 'contained' : 'outlined'}
+                  startIcon={<Code />}
+                  endIcon={<ArrowDropDown />}
+                  onClick={handleDevMenuOpen}
+                  sx={{
+                    borderRadius: 2,
+                    px: 3,
+                    textTransform: 'none',
+                    fontWeight: 600
+                  }}
+                >
+                  Developers
+                </Button>
+                <Menu
+                  anchorEl={devAnchor}
+                  open={Boolean(devAnchor)}
+                  onClose={handleMenuClose}
+                  PaperProps={{
+                    elevation: 3,
+                    sx: {
+                      borderRadius: 2,
+                      mt: 1,
+                      minWidth: 200
+                    }
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => handleNavigation('/signup/dev')}
+                    sx={{ py: 1.5 }}
+                  >
+                    Developer Sign Up
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleNavigation('/login/dev')}
+                    sx={{ py: 1.5 }}
+                  >
+                    Developer Login
+                  </MenuItem>
+                </Menu>
+              </Box>
+
+              <Box>
+                <Button
+                  color="primary"
+                  variant={userAnchor ? 'contained' : 'outlined'}
+                  startIcon={<Person />}
+                  endIcon={<ArrowDropDown />}
+                  onClick={handleUserMenuOpen}
+                  sx={{
+                    borderRadius: 2,
+                    px: 3,
+                    textTransform: 'none',
+                    fontWeight: 600
+                  }}
+                >
+                  Users
+                </Button>
+                <Menu
+                  anchorEl={userAnchor}
+                  open={Boolean(userAnchor)}
+                  onClose={handleMenuClose}
+                  PaperProps={{
+                    elevation: 3,
+                    sx: {
+                      borderRadius: 2,
+                      mt: 1,
+                      minWidth: 200
+                    }
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => handleNavigation('/signup/user')}
+                    sx={{ py: 1.5 }}
+                  >
+                    User Sign Up
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleNavigation('/login/user')}
+                    sx={{ py: 1.5 }}
+                  >
+                    User Login
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </>
+          ) : (
             <IconButton
               size="large"
+              edge="end"
               color="inherit"
-              onClick={toggleDrawer('account', true)}
+              aria-label="menu"
+              onClick={handleMobileMenuOpen}
+              sx={{ color: 'text.primary' }}
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-          </Toolbar>
-        </AppBar>
+          )}
+        </Box>
 
-        {/* Left Drawer (Main Menu) */}
-        <Drawer
-          anchor="left"
-          open={drawerOpen}
-          onClose={toggleDrawer('menu', false)}
+        {/* Mobile Menu */}
+        <Menu
+          anchorEl={mobileAnchor}
+          open={Boolean(mobileAnchor)}
+          onClose={handleMenuClose}
+          PaperProps={{
+            elevation: 3,
+            sx: {
+              borderRadius: 2,
+              mt: 1,
+              minWidth: 200
+            }
+          }}
         >
-          <Box
-            sx={{ width: 300 }}
-            role="presentation"
-            onClick={toggleDrawer('menu', false)}
-            onKeyDown={toggleDrawer('menu', false)}
+          <MenuItem
+            onClick={() => handleNavigation('/')}
+            sx={{ py: 1.5 }}
           >
-            <List>
-              <ListItem disablePadding>
-                <ListItemButton onClick={() => navigate('/')}>
-                  <ListItemText primary="Home" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton onClick={() => navigate('/dashboard')}>
-                  <ListItemText primary="Dashboard" />
-                </ListItemButton>
-              </ListItem>
-               <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/signup/dev')}>
-                    <ListItemText primary="Developer Sign Up" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/login/dev')}>
-                    <ListItemText primary="Developer Login" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/signup/user')}>
-                    <ListItemText primary="User Sign Up" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/login/user')}>
-                    <ListItemText primary="User Login" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </List>
-          </Box>
-        </Drawer>
-
-        {!isMobile && (
-          <Drawer
-            anchor="right"
-            open={accountDrawerOpen}
-            onClose={toggleDrawer('account', false)}
+            <Home sx={{ mr: 1.5 }} /> Home
+          </MenuItem>
+          <MenuItem
+            onClick={() => handleNavigation('/selection')}
+            sx={{ py: 1.5 }}
           >
-            <Box
-              sx={{ width: 300 }}
-              role="presentation"
-              onClick={toggleDrawer('account', false)}
-              onKeyDown={toggleDrawer('account', false)}
-            >
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/signup/dev')}>
-                    <ListItemText primary="Developer Sign Up" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/login/dev')}>
-                    <ListItemText primary="Developer Login" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/signup/user')}>
-                    <ListItemText primary="User Sign Up" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => navigate('/login/user')}>
-                    <ListItemText primary="User Login" />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Box>
-          </Drawer>
-        )}
-      </Box>
-    </>
+            <Dashboard sx={{ mr: 1.5 }} /> Selection
+          </MenuItem>
+          <Divider sx={{ my: 1 }} />
+          <MenuItem
+            onClick={() => handleNavigation('/signup/dev')}
+            sx={{ py: 1.5 }}
+          >
+            <Code sx={{ mr: 1.5 }} /> Developer Sign Up
+          </MenuItem>
+          <MenuItem
+            onClick={() => handleNavigation('/login/dev')}
+            sx={{ py: 1.5 }}
+          >
+            <Code sx={{ mr: 1.5 }} /> Developer Login
+          </MenuItem>
+          <Divider sx={{ my: 1 }} />
+          <MenuItem
+            onClick={() => handleNavigation('/signup/user')}
+            sx={{ py: 1.5 }}
+          >
+            <Person sx={{ mr: 1.5 }} /> User Sign Up
+          </MenuItem>
+          <MenuItem
+            onClick={() => handleNavigation('/login/user')}
+            sx={{ py: 1.5 }}
+          >
+            <Person sx={{ mr: 1.5 }} /> User Login
+          </MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 };
 

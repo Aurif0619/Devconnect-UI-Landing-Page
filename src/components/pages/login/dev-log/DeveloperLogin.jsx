@@ -1,62 +1,84 @@
 import React, { useState } from 'react';
 import {
-  Box, Button, Container, TextField, Typography, Paper, IconButton, InputAdornment
+  Box, Button, Container, TextField, Typography,
+  Paper, IconButton, InputAdornment, Alert, Snackbar
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const DeveloperLogin = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  });
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
     setError('');
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const stored = JSON.parse(localStorage.getItem('developerData'));
+    const storedData = JSON.parse(localStorage.getItem('developerData'));
 
-    if (!stored) {
+    if (!storedData) {
       setError('No developer registered. Please sign up first.');
-    } else if (
-      form.email === stored.email &&
-      form.password === stored.password
-    ) {
-      alert('Login successful!');
-      navigate('/dashboard');
-    } else {
-      setError('Invalid email or password.');
+      return;
     }
+
+    if (form.email !== storedData.email) {
+      setError('Invalid email address');
+      return;
+    }
+
+    if (form.password !== storedData.password) {
+      setError('Invalid password');
+      return;
+    }
+
+    // Successful login
+    setLoginSuccess(true);
+    // Redirect handled after snackbar closes
+  };
+
+  const handleSnackbarClose = () => {
+    setLoginSuccess(false);
+    navigate('/dashboard');
   };
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={4} sx={{ mt: 5, p: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, mt: 4 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Developer Login
         </Typography>
 
-        <Box component="form" onSubmit={handleLogin} noValidate>
+        <Box component="form" onSubmit={handleLogin} sx={{ mt: 3 }}>
           <TextField
+            fullWidth
             label="Email"
             name="email"
+            type="email"
             value={form.email}
             onChange={handleChange}
-            fullWidth
             margin="normal"
+            error={!!error && error.includes('email')}
           />
+
           <TextField
+            fullWidth
             label="Password"
             name="password"
             type={showPassword ? 'text' : 'password'}
             value={form.password}
             onChange={handleChange}
-            fullWidth
             margin="normal"
+            error={!!error && error.includes('password')}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -64,37 +86,50 @@ const DeveloperLogin = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     edge="end"
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               )
             }}
           />
 
-          {error && <Typography color="error" sx={{ mt: 1 }}>{error}</Typography>}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
 
-          <Button variant="contained" type="submit" fullWidth sx={{ mt: 2 }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            size="large"
+            sx={{ mt: 3, py: 1.5 }}
+          >
             Login
           </Button>
 
-          <Button
-            variant="text"
-            fullWidth
-            sx={{ mt: 1, textTransform: 'none' }}
-            onClick={() => alert('Forgot password feature coming soon!')}
-          >
-            Forgot password?
-          </Button>
-
-          <Button
-            fullWidth
-            sx={{ mt: 1, textTransform: 'none' }}
-            onClick={() => navigate('/signup/dev')}
-          >
-            Don't have an account? Sign Up
-          </Button>
+          <Box textAlign="center" mt={2}>
+            <Button
+              onClick={() => navigate('/signup/dev')}
+              sx={{ textTransform: 'none' }}
+            >
+              Don't have an account? Sign Up
+            </Button>
+          </Box>
         </Box>
       </Paper>
+
+      <Snackbar
+        open={loginSuccess}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          Login successful! Redirecting to dashboard...
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
