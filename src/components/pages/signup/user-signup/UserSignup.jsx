@@ -165,16 +165,14 @@ const UserSignup = () => {
         </Container>
 
         <Snackbar
-          open={openSnackbar}
-          autoHideDuration={3000}
+          open={openSnackbar} autoHideDuration={3000}
           onClose={handleCloseSnackbar}
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
           <Alert
             onClose={handleCloseSnackbar}
             severity="success"
-            sx={{ width: '100%' }}
-          >
+            sx={{ width: '100%' }}>
             Signup successful! Redirecting to login page...
           </Alert>
         </Snackbar>
