@@ -19,8 +19,7 @@ const ProfilePage = () => {
       <Paper elevation={3} sx={{ p: 4 }}>
         <Stack direction="row" spacing={4} alignItems="center">
           <Avatar sx={{ 
-            width: 120, 
-            height: 120,
+            width: 120,  height: 120,
             fontSize: 48,
             bgcolor: 'primary.main'
           }}>

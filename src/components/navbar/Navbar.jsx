@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
-import {
-  AppBar, Toolbar, Typography, IconButton, Box,
+import { AppBar, Toolbar, Typography, IconButton, Box,
   Menu, MenuItem, Button, useMediaQuery, Avatar,
-  Divider
+  Divider,
 } from '@mui/material';
-import {
-  Menu as MenuIcon,
-  ArrowDropDown,
-  Code,
-  Person,
-  Home,
-  Dashboard
-} from '@mui/icons-material';
+import { Menu as MenuIcon, ArrowDropDown, Code, Person, Home, Dashboard, LightMode, DarkMode } from '@mui/icons-material';
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const [mobileAnchor, setMobileAnchor] = useState(null);
   const [devAnchor, setDevAnchor] = useState(null);
   const [userAnchor, setUserAnchor] = useState(null);
@@ -47,256 +40,299 @@ const Navbar = () => {
     handleMenuClose();
   };
 
-  // Check active route for button styling
   const isActive = (path) => location.pathname === path;
 
   return (
-    <AppBar position="static" elevation={1} sx={{
-      bgcolor: 'background.paper',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-    }}>
-      <Toolbar sx={{
-        justifyContent: 'space-between',
-        px: { xs: 2, md: 4 }
+    <>
+      <AppBar position="static" elevation={0} sx={{
+        bgcolor: 'transparent',
+        background: darkMode
+          ? 'linear-gradient(135deg, rgba(10,25,41,0.9) 0%, rgba(19,47,76,0.9) 100%)'
+          : 'linear-gradient(135deg, rgba(21,101,192,0.9) 0%, rgba(25,118,210,0.9) 100%)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+        borderBottom: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+        transition: 'all 0.3s ease'
       }}>
-        {/* Logo Section */}
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flex: isMobile ? 1 : 0
+        <Toolbar sx={{
+          justifyContent: 'space-between',
+          px: { xs: 0, md: 4 },
+          width: '100%',
+          maxWidth: '1200px',
+          overflowX: 'hidden'
         }}>
-          <Avatar
-            src="/logo.png"
-            alt="DevConnect"
-            sx={{
-              mr: 2,
-              bgcolor: 'primary.main',
-              cursor: 'pointer',
-              width: 40,
-              height: 40
-            }}
-            onClick={() => navigate('/')}
-          />
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 700,
-              color: 'text.primary',
-              cursor: 'pointer',
-              display: { xs: 'none', sm: 'block' }
-            }}
-            onClick={() => navigate('/')}
-          >
-            DevConnect
-          </Typography>
-        </Box>
-
-        {/* Center Navigation - Only on desktop */}
-        {!isMobile && (
           <Box sx={{
             display: 'flex',
-            gap: 1,
-            flex: 1,
-            justifyContent: 'center',
-            mx: 4
+            alignItems: 'center',
+            flex: 1
           }}>
-            <Button
-              startIcon={<Home />}
-              color={isActive('/') ? 'primary' : 'inherit'}
-              variant={isActive('/') ? 'contained' : 'text'}
+            <Avatar
+              src="/logo.png"
+              alt="DevConnect"
               sx={{
-                borderRadius: 2,
-                px: 3,
-                textTransform: 'none',
-                fontWeight: isActive('/') ? 600 : 500
+                mx: 2,
+                bgcolor: darkMode ? 'rgba(144,202,249,0.2)' : 'rgba(255,255,255,0.2)',
+                color: 'white',
+                cursor: 'pointer',
+                width: 40,
+                height: 40,
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'scale(1.1)'
+                }
+              }}
+              onClick={() => navigate('/')}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 700,
+                color: 'white',
+                cursor: 'pointer',
+                display: { xs: 'none', sm: 'block' },
+                textShadow: '0 2px 4px rgba(0,0,0,0.1)'
               }}
               onClick={() => navigate('/')}
             >
-              Home
-            </Button>
-            <Button
-              startIcon={<Dashboard />}
-              color={isActive('/selection') ? 'primary' : 'inherit'}
-              variant={isActive('/selection') ? 'contained' : 'text'}
-              sx={{
-                borderRadius: 2,
-                px: 3,
-                textTransform: 'none',
-                fontWeight: isActive('/selection') ? 600 : 500
-              }}
-              onClick={() => navigate('/selection')}
-            >
-              Selection
-            </Button>
+              DevConnect
+            </Typography>
           </Box>
-        )}
 
-        {/* Right Side - Auth Buttons */}
-        <Box sx={{
-          display: 'flex',
-          gap: 2,
-          flex: isMobile ? 0 : 1,
-          justifyContent: 'flex-end'
-        }}>
-          {!isMobile ? (
-            <>
-              <Box>
-                <Button
-                  color="primary"
-                  variant={devAnchor ? 'contained' : 'outlined'}
-                  startIcon={<Code />}
-                  endIcon={<ArrowDropDown />}
-                  onClick={handleDevMenuOpen}
-                  sx={{
-                    borderRadius: 2,
-                    px: 3,
-                    textTransform: 'none',
-                    fontWeight: 600
-                  }}
-                >
-                  Developers
-                </Button>
-                <Menu
-                  anchorEl={devAnchor}
-                  open={Boolean(devAnchor)}
-                  onClose={handleMenuClose}
-                  PaperProps={{
-                    elevation: 3,
-                    sx: {
-                      borderRadius: 2,
-                      mt: 1,
-                      minWidth: 200
-                    }
-                  }}
-                >
-                  <MenuItem
-                    onClick={() => handleNavigation('/signup/dev')}
-                    sx={{ py: 1.5 }}
-                  >
-                    Developer Sign Up
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => handleNavigation('/login/dev')}
-                    sx={{ py: 1.5 }}
-                  >
-                    Developer Login
-                  </MenuItem>
-                </Menu>
-              </Box>
-
-              <Box>
-                <Button
-                  color="primary"
-                  variant={userAnchor ? 'contained' : 'outlined'}
-                  startIcon={<Person />}
-                  endIcon={<ArrowDropDown />}
-                  onClick={handleUserMenuOpen}
-                  sx={{
-                    borderRadius: 2,
-                    px: 3,
-                    textTransform: 'none',
-                    fontWeight: 600
-                  }}
-                >
-                  Users
-                </Button>
-                <Menu
-                  anchorEl={userAnchor}
-                  open={Boolean(userAnchor)}
-                  onClose={handleMenuClose}
-                  PaperProps={{
-                    elevation: 3,
-                    sx: {
-                      borderRadius: 2,
-                      mt: 1,
-                      minWidth: 200
-                    }
-                  }}
-                >
-                  <MenuItem
-                    onClick={() => handleNavigation('/signup/user')}
-                    sx={{ py: 1.5 }}
-                  >
-                    User Sign Up
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => handleNavigation('/login/user')}
-                    sx={{ py: 1.5 }}
-                  >
-                    User Login
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </>
-          ) : (
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMobileMenuOpen}
-              sx={{ color: 'text.primary' }}
-            >
-              <MenuIcon />
-            </IconButton>
+          {!isMobile && (
+            <Box sx={{
+              display: 'flex',
+              gap: 1,
+              flex: 1,
+              justifyContent: 'center'
+            }}>
+              <Button
+                startIcon={<Home />}
+                color={isActive('/') ? 'secondary' : 'inherit'}
+                variant={isActive('/') ? 'contained' : 'text'}
+                sx={{
+                  borderRadius: 2,
+                  px: 3,
+                  textTransform: 'none',
+                  fontWeight: isActive('/') ? 600 : 500,
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: isActive('/') ? '' : 'rgba(255,255,255,0.1)'
+                  }
+                }}
+                onClick={() => navigate('/')}>
+                Home
+              </Button>
+              <Button
+                startIcon={<Dashboard />}
+                color={isActive('/selection') ? 'secondary' : 'inherit'}
+                variant={isActive('/selection') ? 'contained' : 'text'}
+                sx={{
+                  borderRadius: 2,
+                  px: 3,
+                  textTransform: 'none',
+                  fontWeight: isActive('/selection') ? 600 : 500,
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: isActive('/selection') ? '' : 'rgba(255,255,255,0.1)'
+                  }
+                }}
+                onClick={() => navigate('/selection')}
+              >
+                Selection
+              </Button>
+            </Box>
           )}
-        </Box>
 
-        {/* Mobile Menu */}
-        <Menu
-          anchorEl={mobileAnchor}
-          open={Boolean(mobileAnchor)}
-          onClose={handleMenuClose}
-          PaperProps={{
-            elevation: 3,
-            sx: {
-              borderRadius: 2,
-              mt: 1,
-              minWidth: 200
-            }
-          }}
-        >
-          <MenuItem
-            onClick={() => handleNavigation('/')}
-            sx={{ py: 1.5 }}
+          <Box sx={{
+            display: 'flex',
+            gap: 2,
+            alignItems: 'center',
+            flex: 1,
+            justifyContent: 'flex-end'
+          }}>
+
+            <IconButton sx={{ color: 'white' }}>
+              {darkMode ? <LightMode /> : <DarkMode />}
+            </IconButton>
+
+            {!isMobile ? (
+              <>
+                <Box>
+                  <Button
+                    color="secondary"
+                    variant={devAnchor ? 'contained' : 'outlined'}
+                    startIcon={<Code />}
+                    endIcon={<ArrowDropDown />}
+                    onClick={handleDevMenuOpen}
+                    sx={{
+                      borderRadius: 2,
+                      px: 3,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      color: 'white',
+                      borderColor: 'rgba(255,255,255,0.3)',
+                      '&:hover': {
+                        borderColor: 'white'
+                      }
+                    }}
+                  >
+                    Developers
+                  </Button>
+                  <Menu
+                    anchorEl={devAnchor}
+                    open={Boolean(devAnchor)}
+                    onClose={handleMenuClose}
+                    PaperProps={{
+                      elevation: 3,
+                      sx: {
+                        borderRadius: 2,
+                        mt: 1,
+                        minWidth: 200,
+                        background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
+                        backdropFilter: 'blur(20px)',
+                        color: darkMode ? '#fff' : 'inherit'
+                      }
+                    }}
+                  >
+                    <MenuItem
+                      onClick={() => handleNavigation('/signup/dev')}
+                      sx={{ py: 1.5 }}
+                    >
+                      <Code sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Developer Sign Up
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleNavigation('/login/dev')}
+                      sx={{ py: 1.5 }}
+                    >
+                      <Code sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Developer Login
+                    </MenuItem>
+                  </Menu>
+                </Box>
+
+                <Box>
+                  <Button
+                    color="secondary"
+                    variant={userAnchor ? 'contained' : 'outlined'}
+                    startIcon={<Person />}
+                    endIcon={<ArrowDropDown />}
+                    onClick={handleUserMenuOpen}
+                    sx={{
+                      borderRadius: 2,
+                      px: 3,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      color: 'white',
+                      borderColor: 'rgba(255,255,255,0.3)',
+                      '&:hover': {
+                        borderColor: 'white'
+                      }
+                    }}
+                  >
+                    Users
+                  </Button>
+                  <Menu
+                    anchorEl={userAnchor}
+                    open={Boolean(userAnchor)}
+                    onClose={handleMenuClose}
+                    PaperProps={{
+                      elevation: 3,
+                      sx: {
+                        borderRadius: 2,
+                        mt: 1,
+                        minWidth: 200,
+                        background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
+                        backdropFilter: 'blur(20px)',
+                        color: darkMode ? '#fff' : 'inherit'
+                      }
+                    }}
+                  >
+                    <MenuItem
+                      onClick={() => handleNavigation('/signup/user')}
+                      sx={{ py: 1.5 }}
+                    >
+                      <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Sign Up
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleNavigation('/login/user')}
+                      sx={{ py: 1.5 }}
+                    >
+                      <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Login
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              </>
+            ) : (
+              <IconButton
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleMobileMenuOpen}
+                sx={{ color: 'white' }}
+              >
+                <MenuIcon style={{ marginRight: '10px' }} />
+              </IconButton>
+            )}
+          </Box>
+
+          <Menu
+            anchorEl={mobileAnchor}
+            open={Boolean(mobileAnchor)}
+            onClose={handleMenuClose}
+            PaperProps={{
+              elevation: 3,
+              sx: {
+                borderRadius: 2,
+                mt: 1,
+                minWidth: 200,
+                background: darkMode ? 'rgba(33,43,54,0.95)' : 'rgba(255,255,255,0.95)',
+                backdropFilter: 'blur(20px)',
+                color: darkMode ? '#fff' : 'inherit'
+              }
+            }}
           >
-            <Home sx={{ mr: 1.5 }} /> Home
-          </MenuItem>
-          <MenuItem
-            onClick={() => handleNavigation('/selection')}
-            sx={{ py: 1.5 }}
-          >
-            <Dashboard sx={{ mr: 1.5 }} /> Selection
-          </MenuItem>
-          <Divider sx={{ my: 1 }} />
-          <MenuItem
-            onClick={() => handleNavigation('/signup/dev')}
-            sx={{ py: 1.5 }}
-          >
-            <Code sx={{ mr: 1.5 }} /> Developer Sign Up
-          </MenuItem>
-          <MenuItem
-            onClick={() => handleNavigation('/login/dev')}
-            sx={{ py: 1.5 }}
-          >
-            <Code sx={{ mr: 1.5 }} /> Developer Login
-          </MenuItem>
-          <Divider sx={{ my: 1 }} />
-          <MenuItem
-            onClick={() => handleNavigation('/signup/user')}
-            sx={{ py: 1.5 }}
-          >
-            <Person sx={{ mr: 1.5 }} /> User Sign Up
-          </MenuItem>
-          <MenuItem
-            onClick={() => handleNavigation('/login/user')}
-            sx={{ py: 1.5 }}
-          >
-            <Person sx={{ mr: 1.5 }} /> User Login
-          </MenuItem>
-        </Menu>
-      </Toolbar>
-    </AppBar>
+            <MenuItem
+              onClick={() => handleNavigation('/')}
+              sx={{ py: 1.5 }}
+            >
+              <Home sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Home
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleNavigation('/selection')}
+              sx={{ py: 1.5 }}
+            >
+              <Dashboard sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Selection
+            </MenuItem>
+            <Divider sx={{ my: 1, bgcolor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
+            <MenuItem
+              onClick={() => handleNavigation('/signup/dev')}
+              sx={{ py: 1.5 }}
+            >
+              <Code sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Developer Sign Up
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleNavigation('/login/dev')}
+              sx={{ py: 1.5 }}
+            >
+              <Code sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Developer Login
+            </MenuItem>
+            <Divider sx={{ my: 1, bgcolor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
+            <MenuItem
+              onClick={() => handleNavigation('/signup/user')}
+              sx={{ py: 1.5 }}
+            >
+              <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Sign Up
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleNavigation('/login/user')}
+              sx={{ py: 1.5 }}
+            >
+              <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Login
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

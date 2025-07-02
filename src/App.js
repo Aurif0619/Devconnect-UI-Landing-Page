@@ -10,6 +10,8 @@ import Navbar from './components/navbar/Navbar';
 import UserSignup from './components/pages/signup/user-signup/UserSignup';
 import ProfilePage from './components/pages/profile/ProfilePage';
 import ProjectDetailPage from './components/pages/project-detail/ProjectDetailPage';
+import EditProfile from './components/pages/edit-profile/EditProfile';
+import ForgotPassword from './components/pages/forgot-password/ForgotPassword';
 
 const Layout = () => {
   return (
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
+
       {
         path: '/',
         element: <LandingPage />,
@@ -54,14 +57,23 @@ const router = createBrowserRouter([
         element: <UserLogin />,
       },
       {
+        path: '/forgot-password',
+        element: <ForgotPassword />,
+      },
+      {
         path: '/profile',
         element: <ProfilePage />
       },
       {
         path: '/project-detail',
         element: <ProjectDetailPage />
+      },
+      {
+        path: '/edit-profile',
+        element: <EditProfile />
       }
     ],
+
   },
 ]);
 

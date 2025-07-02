@@ -3,7 +3,7 @@ import {
     Box, Drawer, CssBaseline, List, Divider,
     ListItem, ListItemButton, ListItemIcon, ListItemText,
     Typography, Grid, Card, CardContent, Avatar, Stack,
-    Chip, Tabs, Tab,  IconButton, useMediaQuery, useTheme
+    Chip, Tabs, Tab, Paper, IconButton, useMediaQuery, useTheme
 } from '@mui/material';
 import {
     Person as ProfileIcon,
@@ -20,8 +20,8 @@ import {
     Menu as MenuIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
-const drawerWidth = 240;
+import StarRateIcon from '@mui/icons-material/StarRate';
+const drawerWidth = 290;
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -35,12 +35,12 @@ const Dashboard = () => {
 
     const userData = storedUserData || {
         name: "Muhammad Aurif",
-        email: "m.ali@example.com",
+        email: "m.aurif@example.com",
         role: "Frontend Developer",
-        linkedin: "https://linkedin.com/in/muhammad-ali",
-        github: "https://github.com/muhammad-ali",
-        skills: ["React", "Node.js", "MongoDB", "Express", "Python", "Django"],
-        bio: "Experienced full stack developer with 5+ years of building web applications."
+        linkedin: "https://linkedin.com/in/muhammad-aurif",
+        github: "https://github.com/muhammad-aurif",
+        skills: ["JavScript", "React.js", "Tailwind CSS", "Next.js", "WordPress"],
+        bio: "Experienced Frontend Developer with 1.5+ years of building web applications."
     };
 
     const projects = {
@@ -57,13 +57,33 @@ const Dashboard = () => {
             },
             {
                 id: 2,
-                name: 'Task Management App',
+                name: 'Task Management',
                 progress: 100,
                 description: 'Collaborative project management tool',
                 tech: ['Vue.js', 'Express', 'PostgreSQL'],
                 status: 'Completed',
                 startDate: 'Mar 2022',
                 teamSize: 2
+            },
+            {
+                id: 8,
+                name: 'Social Media',
+                progress: 45,
+                description: 'Analytics dashboard for social media metrics',
+                tech: ['React', 'Django', 'PostgreSQL', 'Chart.js'],
+                status: 'Active',
+                startDate: 'Jun 2023',
+                teamSize: 4
+            },
+            {
+                id: 9,
+                name: 'CRM System',
+                progress: 90,
+                description: 'Customer relationship management platform',
+                tech: ['Angular', 'NestJS', 'MySQL'],
+                status: 'Active',
+                startDate: 'Feb 2023',
+                teamSize: 5
             }
         ],
         frontend: [
@@ -79,12 +99,32 @@ const Dashboard = () => {
             },
             {
                 id: 4,
-                name: 'Weather Dashboard',
+                name: 'Weather Web Application',
                 progress: 100,
                 description: 'Real-time weather visualization',
                 tech: ['JavaScript', 'Chart.js', 'Weather API'],
                 status: 'Completed',
                 startDate: 'Feb 2023',
+                teamSize: 1
+            },
+            {
+                id: 10,
+                name: 'Recipe Finder Web',
+                progress: 85,
+                description: 'Interactive recipe search application',
+                tech: ['React', 'Redux', 'Edamam API'],
+                status: 'Active',
+                startDate: 'Apr 2023',
+                teamSize: 2
+            },
+            {
+                id: 11,
+                name: 'Fitness Tracker',
+                progress: 100,
+                description: 'Workout tracking dashboard',
+                tech: ['Vue.js', 'Firebase', 'D3.js'],
+                status: 'Completed',
+                startDate: 'Jan 2023',
                 teamSize: 1
             }
         ],
@@ -98,6 +138,26 @@ const Dashboard = () => {
                 status: 'Active',
                 startDate: 'Nov 2022',
                 teamSize: 4
+            },
+            {
+                id: 12,
+                name: 'PDF Editor Application',
+                progress: 60,
+                description: 'Desktop PDF manipulation tool',
+                tech: ['Electron', 'React', 'PDF.js'],
+                status: 'Active',
+                startDate: 'Mar 2023',
+                teamSize: 3
+            },
+            {
+                id: 13,
+                name: 'Automation Tool App',
+                progress: 100,
+                description: 'File processing automation software',
+                tech: ['Python', 'PyQt', 'OpenCV'],
+                status: 'Completed',
+                startDate: 'Dec 2022',
+                teamSize: 2
             }
         ],
         design: [
@@ -120,6 +180,26 @@ const Dashboard = () => {
                 status: 'Completed',
                 startDate: 'Dec 2022',
                 teamSize: 3
+            },
+            {
+                id: 14,
+                name: 'Brand Identity Design ',
+                progress: 100,
+                description: 'Complete branding for startup company',
+                tech: ['Illustrator', 'Photoshop', 'After Effects'],
+                status: 'Completed',
+                startDate: 'Oct 2022',
+                teamSize: 2
+            },
+            {
+                id: 15,
+                name: 'Dashboard UI Kit',
+                progress: 40,
+                description: 'Custom component library for admin dashboards',
+                tech: ['Figma', 'Storybook', 'Lottie'],
+                status: 'In Progress',
+                startDate: 'Jun 2023',
+                teamSize: 1
             }
         ]
     };
@@ -224,8 +304,7 @@ const Dashboard = () => {
             <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3, p: 2 }}>
                 <Avatar sx={{
                     bgcolor: 'primary.main',
-                    width: 48,
-                    height: 48
+                    width: 48, height: 48
                 }}>
                     {userData.name.charAt(0)}
                 </Avatar>
@@ -270,7 +349,7 @@ const Dashboard = () => {
     );
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', }}>
             <CssBaseline />
             {isMobile && (
                 <Drawer
@@ -290,7 +369,6 @@ const Dashboard = () => {
                 </Drawer>
             )}
 
-            {/* Desktop Drawer */}
             {!isMobile && (
                 <Drawer
                     variant="permanent"
@@ -300,7 +378,7 @@ const Dashboard = () => {
                         '& .MuiDrawer-paper': {
                             width: drawerWidth,
                             boxSizing: 'border-box',
-                            backgroundColor: '#f5f5f5'
+                            backgroundColor: '#f5f5f5',
                         },
                     }}
                 >
@@ -404,7 +482,7 @@ const Dashboard = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <Card sx={{
                             height: '100%',
-                            background: 'linear-gradient(135deg,rgb(212, 0, 46) 0%, #00acc1 100%)',
+                            background: 'linear-gradient(135deg, #e91e63 0%, #00acc1 100%)',
                             color: 'white'
                         }}>
                             <CardContent>
@@ -420,100 +498,83 @@ const Dashboard = () => {
                             </CardContent>
                         </Card>
                     </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Card sx={{
+                            height: '100%',
+                            background: 'linear-gradient(135deg, #ff6f00 0%, #ffb300 100%)',
+                            color: 'white'
+                        }}>
+                            <CardContent>
+                                <Stack direction="row" alignItems="center" spacing={2}>
+                                    <Avatar sx={{ bgcolor: 'white', color: '#ff6f00' }}>
+                                        <StarRateIcon />
+                                    </Avatar>
+                                    <Box>
+                                        <Typography variant="h5">4.9⭐</Typography>
+                                        <Typography variant="body2">Client Rating</Typography>
+                                    </Box>
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                    </Grid>
 
-                    <Grid item xs={12} sx={{ width: '100%', padding: 0 }}>
-                        <Card
-                            elevation={2}
-                            sx={{
-                                width: '100%',
-                                p: isMobile ? 1 : 2,
-                                borderRadius: 3,
-                                margin: 0, // Remove any default margins
-                                maxWidth: '100%', // Ensure it doesn't exceed container width
-                                boxSizing: 'border-box' // Include padding in width calculation
-                            }}
-                        >
-                            <Tabs
-                                value={tabValue}
-                                onChange={handleTabChange}
-                                aria-label="project types"
-                                variant={isMobile ? "scrollable" : "standard"}
-                                scrollButtons="auto"
-                                allowScrollButtonsMobile
-                                sx={{
-                                    width: '100%',
-                                    '& .MuiTabs-scroller': {
-                                        overflow: 'visible !important' // Fix scrollable tabs behavior
-                                    }
-                                }}
-                            >
-                                <Tab
+                    <Grid item xs={12} sx={{ width: '100%' }}>
+                        <Card elevation={2} sx={{ p: isMobile ? 1 : 2, borderRadius: 3 }}>
+                            <Paper elevation={0} sx={{ borderRadius: 2 }}>
+                                <Tabs
+                                    value={tabValue}
+                                    onChange={handleTabChange}
+                                    aria-label="project types"
+                                    variant={isMobile ? "scrollable" : "fullWidth"}
+                                    scrollButtons="auto"
+                                    allowScrollButtonsMobile
                                     sx={{
-                                        background: 'linear-gradient(135deg, rgb(223, 213, 215) 0%, rgb(39, 193, 0) 100%)',
-                                        color: 'white',
-                                        mx: 0.5,
-                                        borderRadius: 1,
-                                        minHeight: 48
+                                        '& .MuiTabs-indicator': {
+                                            height: 4,
+                                            borderRadius: '4px 4px 0 0'
+                                        },
+                                        '& .MuiTab-root': {
+                                            minHeight: 60,
+                                            transition: 'all 0.3s',
+                                            '&.Mui-selected': {
+                                                color: theme.palette.primary.main,
+                                                fontWeight: 'bold'
+                                            }
+                                        }
                                     }}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <ComputerIcon sx={{ mr: 1 }} />
-                                            Full Stack
-                                        </Box>
-                                    }
-                                />
-                                <Tab
-                                    sx={{
-                                        background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
-                                        color: 'white',
-                                        mx: 0.5,
-                                        borderRadius: 1,
-                                        minHeight: 48
-                                    }}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <CodeIcon sx={{ mr: 1 }} />
-                                            Frontend
-                                        </Box>
-                                    }
-                                />
-                                <Tab
-                                    sx={{
-                                        background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)',
-                                        color: 'white',
-                                        mx: 0.5,
-                                        borderRadius: 1,
-                                        minHeight: 48
-                                    }}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <MobileIcon sx={{ mr: 1 }} />
-                                            Software
-                                        </Box>
-                                    }
-                                />
-                                <Tab
-                                    sx={{
-                                        background: 'linear-gradient(135deg, #654ea3 0%, #eaafc8 100%)',
-                                        color: 'white',
-                                        mx: 0.5,
-                                        borderRadius: 1,
-                                        minHeight: 48
-                                    }}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <DesignIcon sx={{ mr: 1 }} />
-                                            UI/UX Design
-                                        </Box>
-                                    }
-                                />
-                            </Tabs>
+                                >
+                                    <Tab label="Full Stack" icon={<ComputerIcon />} iconPosition="start"
+                                        sx={{
+                                            background: tabValue === 0 ? 'linear-gradient(135deg, rgba(25, 118, 210, 0.1) 0%, rgba(33, 150, 243, 0.1) 100%)' : 'transparent',
+                                            borderRadius: 1
+                                        }}
+                                    />
+                                    <Tab label="Frontend" icon={<CodeIcon />} iconPosition="start"
+                                        sx={{
+                                            background: tabValue === 1 ? 'linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(139, 195, 74, 0.1) 100%)' : 'transparent',
+                                            borderRadius: 1
+                                        }}
+                                    />
+                                    <Tab label="Software" icon={<MobileIcon />} iconPosition="start"
+                                        sx={{
+                                            background: tabValue === 2 ? 'linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 193, 7, 0.1) 100%)' : 'transparent',
+                                            borderRadius: 1
+                                        }}
+                                    />
+                                    <Tab label="UI/UX Design" icon={<DesignIcon />} iconPosition="start"
+                                        sx={{
+                                            background: tabValue === 3 ? 'linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(0, 172, 193, 0.1) 100%)' : 'transparent',
+                                            borderRadius: 1
+                                        }}
+                                    />
+                                </Tabs>
+                            </Paper>
 
-                            <Box sx={{ mt: 3, width: '100%' }}>
+                            <Box sx={{ mt: 3 }}>
                                 {tabValue === 0 && (
                                     <Grid container spacing={isMobile ? 1 : 2}>
                                         {projects.fullstack.map((project) => (
-                                            <Grid item xs={12} sm={6} key={`fullstack-${project.id}`}>
+                                            <Grid item xs={12} sm={6} md={4} lg={3} key={`fullstack-${project.id}`}>
                                                 <ProjectCard project={project} />
                                             </Grid>
                                         ))}
@@ -523,7 +584,7 @@ const Dashboard = () => {
                                 {tabValue === 1 && (
                                     <Grid container spacing={isMobile ? 1 : 2}>
                                         {projects.frontend.map((project) => (
-                                            <Grid item xs={12} sm={6} key={`frontend-${project.id}`}>
+                                            <Grid item xs={12} sm={6} md={4} lg={3} key={`frontend-${project.id}`}>
                                                 <ProjectCard project={project} />
                                             </Grid>
                                         ))}
@@ -533,7 +594,7 @@ const Dashboard = () => {
                                 {tabValue === 2 && (
                                     <Grid container spacing={isMobile ? 1 : 2}>
                                         {projects.software.map((project) => (
-                                            <Grid item xs={12} sm={6} key={`software-${project.id}`}>
+                                            <Grid item xs={12} sm={6} md={4} lg={3} key={`software-${project.id}`}>
                                                 <ProjectCard project={project} />
                                             </Grid>
                                         ))}
@@ -543,7 +604,7 @@ const Dashboard = () => {
                                 {tabValue === 3 && (
                                     <Grid container spacing={isMobile ? 1 : 2}>
                                         {projects.design.map((project) => (
-                                            <Grid item xs={12} sm={6} key={`design-${project.id}`}>
+                                            <Grid item xs={12} sm={6} md={4} lg={3} key={`design-${project.id}`}>
                                                 <ProjectCard project={project} />
                                             </Grid>
                                         ))}
