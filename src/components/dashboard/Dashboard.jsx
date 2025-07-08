@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Drawer, CssBaseline, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText,
-    Typography, Grid, Card, CardContent, Avatar, Stack, Chip, Tabs, Tab, Paper, IconButton, useMediaQuery, useTheme
+import {
+    Box, Drawer, CssBaseline, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Grid,
+    Card, CardContent, Avatar, Stack, Chip, Tabs, Tab, Paper, IconButton, useMediaQuery, useTheme
 } from '@mui/material';
 
 import {
@@ -335,6 +336,7 @@ const Dashboard = () => {
     );
 
     return (
+     <>
         <Box sx={{ display: 'flex', }}>
             <CssBaseline />
             {isMobile && (
@@ -602,6 +604,7 @@ const Dashboard = () => {
                 </Grid>
             </Box>
         </Box>
+     </>
     );
 };
 

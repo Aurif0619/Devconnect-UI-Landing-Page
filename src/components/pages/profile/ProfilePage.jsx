@@ -37,8 +37,7 @@ const ProfilePage = () => {
               </Typography>
 
               <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                <Chip icon={<EmailIcon />}
-                  label={userData.email}
+                <Chip icon={<EmailIcon />} label={userData.email}
                   variant="outlined"
                 />
                 <Chip icon={<LinkIcon />}

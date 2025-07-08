@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Box, Button, Container, TextField, Typography,
-  Paper, IconButton, InputAdornment, Alert, Snackbar
-} from '@mui/material';
+import { Box, Button, Container, TextField, Typography, Paper, IconButton, InputAdornment, Alert, Snackbar } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,8 +65,7 @@ const DeveloperLogin = () => {
       >
         <Container maxWidth="sm">
           <Paper elevation={6} sx={{
-            p: 4,
-            borderRadius: 4,
+            p: 4, borderRadius: 4,
             background: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(8px)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
@@ -109,8 +105,7 @@ const DeveloperLogin = () => {
                 }}
               />
 
-              <TextField
-                fullWidth
+              <TextField fullWidth
                 label="Password" name="password"
                 type={showPassword ? 'text' : 'password'}
                 value={form.password} onChange={handleChange}

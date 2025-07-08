@@ -41,25 +41,20 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static" elevation={0} sx={{
-      }}>
+      <AppBar position="static" elevation={0}>
         <Toolbar sx={{
           justifyContent: 'space-between',
           px: { xs: 0, md: 4 },
-          width: '100%',
-          maxWidth: '1200px',
+          width: '100%', maxWidth: '1200px',
           overflowX: 'hidden'
         }}>
           <Box sx={{
-            display: 'flex',
-            alignItems: 'center', flex: 1
+            display: 'flex', alignItems: 'center', flex: 1,
           }}>
-            <Avatar
-              src="/logo.png"
-              alt="DevConnect"
+            <Avatar src="/logo.png" alt="DevConnect"
               sx={{
-                mx: 2, color: 'white',
-                cursor: 'pointer',
+                background: `linear-gradient(45deg, ${theme.palette.primary.main} 1%, ${theme.palette.secondary.main} 90%)`,
+                mx: 2, color: 'white', cursor: 'pointer',
                 width: 40, height: 40,
                 transition: 'transform 0.3s',
                 '&:hover': {
@@ -68,31 +63,21 @@ const Navbar = () => {
               }}
               onClick={() => navigate('/')}
             />
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 700,
-                color: 'white',
-                cursor: 'pointer',
-                display: { xs: 'none', sm: 'block' },
-                textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-              }}
-              onClick={() => navigate('/')}
-            >
+            <Typography variant="h6" sx={{
+              fontWeight: 700, color: 'white', cursor: 'pointer',
+              display: { xs: 'none', sm: 'block' }
+            }}
+              onClick={() => navigate('/')}>
               DevConnect
             </Typography>
           </Box>
 
           {!isMobile && (
             <Box sx={{
-              display: 'flex',
-              gap: 1,
-              flex: 1,
+              display: 'flex', gap: 1, flex: 1,
               justifyContent: 'center'
             }}>
-              <Button
-                startIcon={<Home />}
-                color={isActive('/') ? 'secondary' : 'inherit'}
+              <Button startIcon={<Home />} color={isActive('/') ? 'secondary' : 'inherit'}
                 variant={isActive('/') ? 'contained' : 'text'}
                 sx={{
                   borderRadius: 2,
@@ -103,8 +88,7 @@ const Navbar = () => {
                   '&:hover': {
                     backgroundColor: isActive('/') ? '' : 'rgba(255,255,255,0.1)'
                   }
-                }}
-                onClick={() => navigate('/')}>
+                }} onClick={() => navigate('/')}>
                 Home
               </Button>
               <Button
@@ -113,8 +97,7 @@ const Navbar = () => {
                 variant={isActive('/selection') ? 'contained' : 'text'}
                 sx={{
                   borderRadius: 2,
-                  px: 3,
-                  textTransform: 'none',
+                  px: 3, textTransform: 'none',
                   fontWeight: isActive('/selection') ? 600 : 500,
                   color: 'white',
                   '&:hover': {
@@ -130,10 +113,8 @@ const Navbar = () => {
 
           <Box sx={{
             display: 'flex',
-            gap: 2,
-            alignItems: 'center',
-            flex: 1,
-            justifyContent: 'flex-end'
+            gap: 2, alignItems: 'center',
+            flex: 1, justifyContent: 'flex-end'
           }}>
 
             <IconButton sx={{ color: 'white' }}>
@@ -146,26 +127,20 @@ const Navbar = () => {
                   <Button
                     color="secondary"
                     variant={devAnchor ? 'contained' : 'outlined'}
-                    startIcon={<Code />}
-                    endIcon={<ArrowDropDown />}
+                    startIcon={<Code />} endIcon={<ArrowDropDown />}
                     onClick={handleDevMenuOpen}
                     sx={{
-                      borderRadius: 2,
-                      px: 3,
+                      borderRadius: 2, px: 3,
                       textTransform: 'none',
-                      fontWeight: 600,
-                      color: 'white',
+                      fontWeight: 600, color: 'white',
                       borderColor: 'rgba(255,255,255,0.3)',
                       '&:hover': {
                         borderColor: 'white'
                       }
-                    }}
-                  >
+                    }}>
                     Developers
                   </Button>
-                  <Menu
-                    anchorEl={devAnchor}
-                    open={Boolean(devAnchor)}
+                  <Menu anchorEl={devAnchor} open={Boolean(devAnchor)}
                     onClose={handleMenuClose}
                     PaperProps={{
                       elevation: 3,
@@ -196,15 +171,12 @@ const Navbar = () => {
                   <Button
                     color="secondary"
                     variant={userAnchor ? 'contained' : 'outlined'}
-                    startIcon={<Person />}
-                    endIcon={<ArrowDropDown />}
+                    startIcon={<Person />} endIcon={<ArrowDropDown />}
                     onClick={handleUserMenuOpen}
                     sx={{
                       borderRadius: 2,
-                      px: 3,
-                      textTransform: 'none',
-                      fontWeight: 600,
-                      color: 'white',
+                      px: 3, textTransform: 'none',
+                      fontWeight: 600, color: 'white',
                       borderColor: 'rgba(255,255,255,0.3)',
                       '&:hover': {
                         borderColor: 'white'
@@ -214,70 +186,56 @@ const Navbar = () => {
                     Users
                   </Button>
                   <Menu
-                    anchorEl={userAnchor}
-                    open={Boolean(userAnchor)}
+                    anchorEl={userAnchor} open={Boolean(userAnchor)}
                     onClose={handleMenuClose}
                     PaperProps={{
                       elevation: 3,
                       sx: {
                         borderRadius: 2,
-                        mt: 1,
-                        minWidth: 200,
+                        mt: 1, minWidth: 200,
                         backdropFilter: 'blur(20px)',
                       }
-                    }}
-                  >
+                    }}>
                     <MenuItem
                       onClick={() => handleNavigation('/signup/user')}
-                      sx={{ py: 1.5 }}
-                    >
+                      sx={{ py: 1.5 }}>
                       <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Sign Up
                     </MenuItem>
                     <MenuItem
                       onClick={() => handleNavigation('/login/user')}
-                      sx={{ py: 1.5 }}
-                    >
+                      sx={{ py: 1.5 }}>
                       <Person sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> User Login
                     </MenuItem>
                   </Menu>
                 </Box>
               </>
             ) : (
-              <IconButton
-                size="large"
-                edge="end"
-                color="inherit"
-                aria-label="menu"
-                onClick={handleMobileMenuOpen}
-                sx={{ color: 'white' }}
-              >
+              <IconButton size="large"
+                edge="end" color="inherit"
+                aria-label="menu" onClick={handleMobileMenuOpen}
+                sx={{ color: 'white' }}>
                 <MenuIcon style={{ marginRight: '10px' }} />
               </IconButton>
             )}
           </Box>
 
-          <Menu
-            anchorEl={mobileAnchor}
-            open={Boolean(mobileAnchor)}
+          <Menu anchorEl={mobileAnchor} open={Boolean(mobileAnchor)}
             onClose={handleMenuClose}
             PaperProps={{
               elevation: 3,
               sx: {
                 borderRadius: 2,
-                mt: 1,
-                minWidth: 200,
+                mt: 1, minWidth: 200,
                 backdropFilter: 'blur(20px)',
               }
-            }}
-          >
+            }}>
             <MenuItem
               onClick={() => handleNavigation('/')}
               sx={{ py: 1.5 }}
             >
               <Home sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Home
             </MenuItem>
-            <MenuItem
-              onClick={() => handleNavigation('/selection')}
+            <MenuItem onClick={() => handleNavigation('/selection')}
               sx={{ py: 1.5 }}
             >
               <Dashboard sx={{ mr: 1.5, color: theme.palette.secondary.main }} /> Selection

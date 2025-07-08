@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container, Paper, Typography, TextField,
-  Button, Box, IconButton, InputAdornment,
-  Alert, Snackbar
-} from '@mui/material';
+import { Container, Paper, Typography, TextField, Button, Box, IconButton, InputAdornment, Alert, Snackbar } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,8 +45,7 @@ const UserLogin = () => {
   return (
     <>
       <Box sx={{
-        minHeight: '100vh',
-        display: 'flex',
+        minHeight: '100vh', display: 'flex',
         alignItems: 'center',
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         backgroundSize: 'cover',

@@ -83,8 +83,7 @@ const ForgotPassword = () => {
                         </Typography>
 
                         <Box component="form" onSubmit={handleSubmit}>
-                            <TextField
-                                fullWidth
+                            <TextField fullWidth
                                 label="Email Address"
                                 type="email"
                                 value={email}

@@ -78,8 +78,7 @@ const ProjectDetailPage = () => {
                         <Button
                             variant="outlined"
                             startIcon={<CodeIcon />}
-                            component="a"
-                            href="#"
+                            component="a" href="#"
                             target="_blank"
                         >
                             Source Code
